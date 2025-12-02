@@ -24,19 +24,7 @@
     .portfolio-item{background:#fff;border-radius:10px;padding:12px;min-height:120px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer}
     footer{margin-top:22px;color:var(--muted);font-size:13px}
     .meta{font-size:13px;color:var(--muted)}
-    .image-preview{width:100%;height:160px;object-fit:cover;border-radius:8px;background:#eef2ff}
-    .download{display:inline-block;margin-top:8px;padding:8px 10px;border-radius:8px;border:1px solid #e6e9ee;text-decoration:none;color:#0f172a}
-    .gallery { display:flex; gap:10px; align-items:center; justify-content:center; margin-top:12px; }
-    .carousel { position: relative; width:100%; max-width:640px; margin:0 auto; overflow:hidden; border-radius:10px; }
-    .slides { display:flex; transition:transform .45s cubic-bezier(.2,.9,.28,1); }
-    .slides img{ width:100%; height:320px; object-fit:cover; display:block }
-    .arrow { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.9); border-radius:30px; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,0.12)}
-    .arrow.left{ left:8px } .arrow.right{ right:8px }
-    .slide-title{ text-align:center; margin-top:8px; font-weight:600; color:#0f172a}
-    .dot-row{ display:flex; gap:8px; justify-content:center; margin-top:8px}
-    .dot{ width:10px; height:10px; border-radius:50%; background:#e6e9ee; cursor:pointer}
-    .dot.active{ background:var(--accent)}
-    @media(max-width:880px){.grid{grid-template-columns:1fr} .logo{width:56px;height:56px} .slides img{height:200px}}
+    @media(max-width:880px){.grid{grid-template-columns:1fr} .logo{width:56px;height:56px}}
   </style>
 </head>
 <body>
@@ -85,14 +73,6 @@
                 <p class="meta">10-post set: new arrivals, styling tips, promo</p>
               </div>
               <div><span class="meta">Click to view</span></div>
-            </div>
-
-            <div class="portfolio-item" onclick="openModal('modal-gallery')">
-              <img class="image-preview" src="data:image/png;base64,{{IMG1}}" alt="Gig preview" />
-              <div style="margin-top:8px">
-                <strong>Fiverr gig image</strong>
-                <p class="meta">Ad/cover image for your Fiverr gig</p>
-              </div>
             </div>
 
             <div class="portfolio-item" onclick="openModal('modal-blog')">
@@ -173,31 +153,6 @@
     </div>
   </div>
 
-  <div id="modal-gallery" class="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);justify-content:center;align-items:center;">
-    <div style="background:#fff;padding:14px;border-radius:12px;max-width:820px;width:94%;color:#000;">
-      <button onclick="closeModal('modal-gallery')" style="float:right;background:#eee;border:none;padding:6px 10px;border-radius:6px;cursor:pointer">Close</button>
-      <h2 style="margin-top:6px">Gig Images Gallery</h2>
-
-      <div class="carousel" id="carousel">
-        <div class="slides" id="slides">
-          <div style="min-width:100%"><img src="data:image/png;base64,{{IMG1}}" alt="Image A"></div>
-          <div style="min-width:100%"><img src="data:image/png;base64,{{IMG2}}" alt="Image B"></div>
-          <div style="min-width:100%"><img src="data:image/png;base64,{{IMG3}}" alt="Image C"></div>
-        </div>
-
-        <div class="arrow left" onclick="prev()">&#10094;</div>
-        <div class="arrow right" onclick="next()">&#10095;</div>
-      </div>
-
-      <div class="slide-title" id="slideTitle">Clothing Brand — Social Pack</div>
-      <div class="dot-row">
-        <div class="dot active" onclick="goTo(0)"></div>
-        <div class="dot" onclick="goTo(1)"></div>
-        <div class="dot" onclick="goTo(2)"></div>
-      </div>
-    </div>
-  </div>
-
   <div id="modal-blog" class="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);justify-content:center;align-items:center;">
     <div style="background:#fff;padding:20px;border-radius:12px;max-width:700px;width:90%;color:#000;">
       <button onclick="closeModal('modal-blog')" style="float:right;background:#eee;border:none;padding:6px 10px;border-radius:6px;cursor:pointer">Close</button>
@@ -230,28 +185,11 @@
   </div>
 
 <script>
-  // inserted base64 images (from your uploaded files)
-  const img1 = "{{IMG1}}";
-  const img2 = "{{IMG2}}";
-  const img3 = "{{IMG3}}";
-
-  // replace placeholders with actual base64 strings
-  document.body.innerHTML = document.body.innerHTML.replaceAll("{{IMG1}}", img1).replaceAll("{{IMG2}}", img2).replaceAll("{{IMG3}}", img3);
-
   // modal helpers
   function openModal(id){ document.getElementById(id).style.display = 'flex'; }
   function closeModal(id){ document.getElementById(id).style.display = 'none'; }
-
-  // carousel logic
-  const slides = document.getElementById('slides');
-  const dots = Array.from(document.getElementsByClassName('dot'));
-  const titles = ['Clothing Brand — Social Pack','Promo Image Concept','Seasonal Sale Design'];
-  let index = 0;
-  function update(){ slides.style.transform = 'translateX('+(-index*100)+'%)'; dots.forEach((d,i)=>d.classList.toggle('active',i===index)); document.getElementById('slideTitle').textContent = titles[index]; }
-  function prev(){ index = (index-1+3)%3; update(); }
-  function next(){ index = (index+1)%3; update(); }
-  function goTo(i){ index = i; update(); }
-  update();
 </script>
+
 </body>
 </html>
+
